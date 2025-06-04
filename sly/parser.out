@@ -1,0 +1,124 @@
+Grammar:
+
+Rule 0     S' -> S
+Rule 1     S -> numero
+Rule 2     S -> numero dividido S
+Rule 3     S -> numero vezes S
+Rule 4     S -> numero menos S
+Rule 5     S -> numero mais S
+
+Terminals, with rules where they appear:
+
+dividido             : 2
+error                : 
+mais                 : 5
+menos                : 4
+numero               : 1 2 3 4 5
+vezes                : 3
+
+Nonterminals, with rules where they appear:
+
+S                    : 2 3 4 5 0
+
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . numero
+    (2) S -> . numero dividido S
+    (3) S -> . numero vezes S
+    (4) S -> . numero menos S
+    (5) S -> . numero mais S
+    numero          shift and go to state 2
+
+    S                              shift and go to state 1
+
+state 1
+
+    (0) S' -> S .
+
+
+state 2
+
+    (1) S -> numero .
+    (2) S -> numero . dividido S
+    (3) S -> numero . vezes S
+    (4) S -> numero . menos S
+    (5) S -> numero . mais S
+    $end            reduce using rule 1 (S -> numero .)
+    dividido        shift and go to state 3
+    vezes           shift and go to state 4
+    menos           shift and go to state 5
+    mais            shift and go to state 6
+
+
+state 3
+
+    (2) S -> numero dividido . S
+    (1) S -> . numero
+    (2) S -> . numero dividido S
+    (3) S -> . numero vezes S
+    (4) S -> . numero menos S
+    (5) S -> . numero mais S
+    numero          shift and go to state 2
+
+    S                              shift and go to state 7
+
+state 4
+
+    (3) S -> numero vezes . S
+    (1) S -> . numero
+    (2) S -> . numero dividido S
+    (3) S -> . numero vezes S
+    (4) S -> . numero menos S
+    (5) S -> . numero mais S
+    numero          shift and go to state 2
+
+    S                              shift and go to state 8
+
+state 5
+
+    (4) S -> numero menos . S
+    (1) S -> . numero
+    (2) S -> . numero dividido S
+    (3) S -> . numero vezes S
+    (4) S -> . numero menos S
+    (5) S -> . numero mais S
+    numero          shift and go to state 2
+
+    S                              shift and go to state 9
+
+state 6
+
+    (5) S -> numero mais . S
+    (1) S -> . numero
+    (2) S -> . numero dividido S
+    (3) S -> . numero vezes S
+    (4) S -> . numero menos S
+    (5) S -> . numero mais S
+    numero          shift and go to state 2
+
+    S                              shift and go to state 10
+
+state 7
+
+    (2) S -> numero dividido S .
+    $end            reduce using rule 2 (S -> numero dividido S .)
+
+
+state 8
+
+    (3) S -> numero vezes S .
+    $end            reduce using rule 3 (S -> numero vezes S .)
+
+
+state 9
+
+    (4) S -> numero menos S .
+    $end            reduce using rule 4 (S -> numero menos S .)
+
+
+state 10
+
+    (5) S -> numero mais S .
+    $end            reduce using rule 5 (S -> numero mais S .)
